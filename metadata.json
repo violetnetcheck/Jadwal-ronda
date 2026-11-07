@@ -1,0 +1,10 @@
+{
+  "name": "Siskamling RT.01 RW.02 Babakan Pandan",
+  "description": "Aplikasi Ronda & Keamanan Warga RT.01 RW.02 Babakan Pandan: Jadwal Ronda 30 Warga, Tukar Shift, Tombol Darurat & Sirene Real-time, Absensi QR & GPS, Kas Warga, Buku Tamu 1x24 Jam, dan Chat Siskamling.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

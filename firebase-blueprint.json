@@ -1,0 +1,125 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Profil resmi warga atau pengurus RT/RW",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "age": { "type": "number" },
+        "email": { "type": "string", "maxLength": 120 },
+        "whatsapp": { "type": "string", "maxLength": 30 },
+        "role": { "type": "string", "enum": ["warga", "rt_rw"] },
+        "createdAt": { "type": "string" },
+        "lastActive": { "type": "string" }
+      },
+      "required": ["name", "age", "email", "role"]
+    },
+    "Presence": {
+      "title": "Presence",
+      "description": "Sesi online aktif real-time",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string", "maxLength": 100 },
+        "userId": { "type": "string", "maxLength": 100 },
+        "name": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["warga", "rt_rw"] },
+        "email": { "type": "string", "maxLength": 120 },
+        "lastPing": { "type": "number" }
+      },
+      "required": ["sessionId", "name", "role", "lastPing"]
+    },
+    "Schedule": {
+      "title": "Schedule",
+      "description": "Jadwal resmi ronda malam ini dan malam besok",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "maxLength": 50 },
+        "title": { "type": "string", "maxLength": 100 },
+        "hours": { "type": "string", "maxLength": 50 },
+        "coordinator": { "type": "string", "maxLength": 100 },
+        "coordinatorPhone": { "type": "string", "maxLength": 30 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "participants": { "type": "array" },
+        "checkpoints": { "type": "array" }
+      },
+      "required": ["date", "title", "hours"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Pesan chat WhatsApp siskamling real-time",
+      "type": "object",
+      "properties": {
+        "senderName": { "type": "string", "maxLength": 100 },
+        "senderEmail": { "type": "string", "maxLength": 120 },
+        "senderRole": { "type": "string", "enum": ["warga", "rt_rw"] },
+        "text": { "type": "string", "maxLength": 2000 },
+        "imageUrl": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "audioUrl": { "type": "string" },
+        "timestamp": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["senderName", "senderRole", "timestamp"]
+    },
+    "CitizenStory": {
+      "title": "CitizenStory",
+      "description": "Status story warga RT.01 RW.02",
+      "type": "object",
+      "properties": {
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorRole": { "type": "string", "enum": ["warga", "rt_rw"] },
+        "authorEmail": { "type": "string", "maxLength": 120 },
+        "type": { "type": "string", "enum": ["text", "image", "video"] },
+        "content": { "type": "string", "maxLength": 1000 },
+        "mediaUrl": { "type": "string" },
+        "bgGradient": { "type": "string", "maxLength": 100 },
+        "likes": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["authorName", "authorRole", "type", "createdAt"]
+    },
+    "PanicAlarm": {
+      "title": "PanicAlarm",
+      "description": "Peringatan darurat dan alarm sirene real-time",
+      "type": "object",
+      "properties": {
+        "active": { "type": "boolean" },
+        "type": { "type": "string", "maxLength": 100 },
+        "reportedBy": { "type": "string", "maxLength": 100 },
+        "reporterPhone": { "type": "string", "maxLength": 50 },
+        "locationDescription": { "type": "string", "maxLength": 300 },
+        "coordinates": { "type": "object" },
+        "notes": { "type": "string", "maxLength": 500 },
+        "timestamp": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["active", "type", "reportedBy", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Data profil akun warga dan RT/RW"
+    },
+    "/presence/{sessionId}": {
+      "schema": "Presence",
+      "description": "Sesi online real-time"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": "Schedule",
+      "description": "Jadwal ronda malam ini dan besok"
+    },
+    "/chat_messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Pesan chat WhatsApp siskamling"
+    },
+    "/stories/{storyId}": {
+      "schema": "CitizenStory",
+      "description": "Story warga"
+    },
+    "/panic_alarms/{alarmId}": {
+      "schema": "PanicAlarm",
+      "description": "Status alarm sirene darurat"
+    }
+  }
+}
